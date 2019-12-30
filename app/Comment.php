@@ -13,4 +13,9 @@ class Comment extends Model
         'commentable_type',
         'url'
     ];
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+
 }
