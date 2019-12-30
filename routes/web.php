@@ -24,3 +24,4 @@ Route::resources('tasks','TasksController');
 Route::resources('projects','ProjectsController');
 Route::resources('roles','RolesController');
 Route::resources('users','UsersController');
+Route::resources('comments','CommentsController');
