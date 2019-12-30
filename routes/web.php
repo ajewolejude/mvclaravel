@@ -19,9 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resources('companies','CompaniesController');
-Route::resources('tasks','TasksController');
-Route::resources('projects','ProjectsController');
-Route::resources('roles','RolesController');
-Route::resources('users','UsersController');
-Route::resources('comments','CommentsController');
+Route::resource('companies','CompaniesController');
+Route::resource('tasks','TasksController');
+Route::resource('projects','ProjectsController');
+Route::resource('roles','RolesController');
+Route::resource('users','UsersController');
+Route::resource('comments','CommentsController');
