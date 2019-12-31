@@ -5,11 +5,13 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Companies</h3>
+            <a class="btn btn-primary btn-sm" href="/companies/create">Create new company</a>
         </div>
+        <br>
         <div class="panel-body">
             <ul class="list-group">
                 @foreach($companies as $company)
-                <li class="list-group-item">{{$company->name}}</li>
+                <li class="list-group-item" ><a href="/companies/{{$company->id}}">{{$company->name}}</a></li>
                 @endforeach
             </ul>
         </div>

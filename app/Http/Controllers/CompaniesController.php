@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CompaniesController extends Controller
 {
@@ -16,7 +17,7 @@ class CompaniesController extends Controller
     {
         //
         $companies = Company::all();
-        return view('companies.index', ['companies'=>$companies]);
+        return view('companies.index', ['companies' => $companies]);
     }
 
     /**
@@ -27,6 +28,7 @@ class CompaniesController extends Controller
     public function create()
     {
         //
+        return view('companies.create');
     }
 
     /**
@@ -38,6 +40,22 @@ class CompaniesController extends Controller
     public function store(Request $request)
     {
         //
+
+        if (Auth::check()) {
+            $company = Company::create([
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'user_id' => Auth::user()->id
+            ]);
+
+
+            if ($company) {
+                return redirect()->route('companies.show', ['company' => $company->id])
+                    ->with('success', 'Company created successfully');
+            }
+        }
+
+        return back()->withInput()->with('errors', 'Company not created');
     }
 
     /**
@@ -48,7 +66,11 @@ class CompaniesController extends Controller
      */
     public function show(Company $company)
     {
-        //
+
+        //  $company = Company::where('id', $company->id)->first();
+        // can use either
+        $company = Company::find($company->id);
+        return view('companies.show', ['company' => $company]);
     }
 
     /**
@@ -59,6 +81,9 @@ class CompaniesController extends Controller
      */
     public function edit(Company $company)
     {
+
+        $company =  Company::find($company->id);
+        return view('companies.edit', ['company' => $company]);
         //
     }
 
@@ -71,7 +96,21 @@ class CompaniesController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        //
+        //save data
+        $companyUpdate = Company::find($company->id)
+            ->update([
+                'name' => $request->input('name'),
+                'description' => $request->input('description')
+            ]);
+
+        if ($companyUpdate) {
+            return redirect()->route('companies.show', ['company' => $company->id])
+                ->with('success', 'Company updated successfully');
+        }
+
+        //redirect
+
+        return back()->withInput();
     }
 
     /**
@@ -83,5 +122,11 @@ class CompaniesController extends Controller
     public function destroy(Company $company)
     {
         //
+        $findCompany = Company::find($company->id);
+        if ($findCompany->delete()) {
+            return redirect()->route('companies.index')->with('success', 'Company deleted successfully.');
+        }
+
+        return back()->withInput()->with('errors', 'Company not deleted');
     }
 }
