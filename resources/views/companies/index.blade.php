@@ -5,7 +5,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Companies</h3>
-            <a class="btn btn-primary btn-sm" href="/companies/create">Create new company</a>
+            <a class="btn btn-primary btn-sm" href="/companies/create">Create new</a>
         </div>
         <br>
         <div class="panel-body">

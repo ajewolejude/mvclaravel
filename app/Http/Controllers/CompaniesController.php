@@ -16,8 +16,14 @@ class CompaniesController extends Controller
     public function index()
     {
         //
-        $companies = Company::all();
-        return view('companies.index', ['companies' => $companies]);
+
+        if(Auth::check()){
+            //dump(Auth::user()->id); to debug
+            $companies = Company::where('user_id', Auth::user()->id)->get();
+            return view('companies.index', ['companies' => $companies]);
+        }
+        return view('auth.login');
+        
     }
 
     /**

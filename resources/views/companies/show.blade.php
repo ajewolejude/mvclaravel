@@ -16,7 +16,9 @@
     </div>
 
     <!-- Example row of columns -->
-    <div class="row" style="background:white; margin:10px; padding:10px">
+    
+    <a href="/projects/create" class="btn-sm btn-primary pull-right btn">Add Project</a>
+    <div class="row col-sm-12 col-lg-12 col-md-12" style="background:white; margin:10px; padding:10px">
         @foreach($company->projects as $project)
         <div class="col-lg-4">
             <h2>{{ $project->name }}</h2>
@@ -25,6 +27,8 @@
         </div>
 
         @endforeach
+
+   
     </div>
 
 </div>
